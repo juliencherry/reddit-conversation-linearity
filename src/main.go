@@ -1,23 +1,46 @@
 package main
 
 import (
-	"env"
+	// "env"
 	"fmt"
-	"reddit"
+	// "reddit"
+	. "linearity"
 )
 
 func main() {
-	envManager := env.Manager{}
+
+	/*envManager := env.Manager{}
 	env, err := envManager.GetRedditEnv()
 	if (err != nil) {
 		fmt.Printf("Couldn’t get Reddit environment: %s\n", err.Error()); return
 	}
 
 	reddit := reddit.APIClient{}
-	authToken, err := reddit.GetAuthToken(env.Username, env.Password, env.ClientID, env.ClientSecret)
+	err = reddit.RetrieveAuthToken(env.Username, env.Password, env.ClientID, env.ClientSecret)
 	if (err != nil) {
-		fmt.Printf("Couldn’t get authorization token: %s\n", err.Error()); return
+		fmt.Printf("Couldn’t retrieve authorization token: %s\n\n", err.Error()); return
+	}*/
+
+	// reddit := reddit.APIClient{}
+	// reddit.GetInfo()
+
+	testConversation := CommentWithChildren{
+		Children: []Conversation{
+			CommentWithChildren{
+				Children: []Conversation{
+					FinalComment{},
+					FinalComment{},
+				},
+			},
+			CommentWithChildren{
+				Children: []Conversation{
+					FinalComment{},
+					FinalComment{},
+				},
+			},
+		},
 	}
 
-	fmt.Printf("Authorization token: %+v\n", authToken)
+	linearityCalc := Calculator{}
+	fmt.Printf("Linearity: %f\n", linearityCalc.Linearity(testConversation))
 }
